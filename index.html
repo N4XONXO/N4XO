@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team N4XO</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            scroll-behavior: smooth; 
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1a1a1a;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(145deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+            background-color: #111;
+        }
+
+        .admin-nav-btn {
+            background-color: #111;
+            border: 1px solid #333;
+            color: #ff3c00 !important;
+            cursor: pointer;
+        }
+
+        .admin-nav-btn:hover {
+            background-color: #ff3c00 !important;
+            color: #fff !important;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-logo {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 25px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #777;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+        }
+
+        .team-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 40px 20px;
+            text-align: center;
+        }
+
+        .grid-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .team-card {
+            background: linear-gradient(145deg, #0f0f0f, #070707);
+            border: 1px solid #161616;
+            border-radius: 16px;
+            padding: 35px 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #ffffff;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: #333;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid #222;
+            transition: border-color 0.3s ease;
+            background-color: #111;
+        }
+
+        .team-card:hover .avatar { border-color: #fff; }
+        .member-name { font-size: 24px; font-weight: bold; margin-bottom: 8px; letter-spacing: 1px; }
+        .member-role { color: #888; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        
+        /* Style pour la plateforme du joueur */
+        .member-platform {
+            font-size: 12px;
+            color: #555;
+            background-color: #111;
+            border: 1px solid #222;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .contact-btn { border-color: #fff; }
+        .contact-btn:hover { background-color: #fff; color: #000 !important; }
+
+        .networks-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .grid-networks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .net-card {
+            background-color: #090909;
+            border: 1px solid #141414;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .net-card:hover {
+            transform: translateY(-5px);
+            background-color: #121212;
+            border-color: #ffffff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .net-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
+        .net-desc { color: #555; font-size: 14px; }
+
+        /* Popups */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-box {
+            background-color: #0f0f0f;
+            border: 1px solid #222;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-box h3 { font-size: 24px; margin-bottom: 15px; }
+        .modal-box p { color: #aaa; margin-bottom: 20px; }
+
+        .discord-tag {
+            background-color: #161616;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 18px;
+            color: #5865F2;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Admin Management Lists */
+        .admin-form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .admin-form-group label {
+            display: block;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .admin-form-group input, .admin-form-group select {
+            width: 100%;
+            padding: 10px;
+            background-color: #161616;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .admin-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff3c00;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .admin-btn:hover { opacity: 0.9; }
+
+        .delete-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #141414;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #222;
+            font-size: 14px;
+            text-align: left;
+        }
+        .delete-btn {
+            background-color: #721c24;
+            color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .delete-btn:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .close-btn {
+            background-color: #222;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .close-btn:hover { background-color: #333; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #333;
+            border-top: 1px solid #111;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-text" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">N4XO</div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil" class="smooth-link">Accueil</a></li>
+                    <li><a href="#equipe" class="smooth-link">Équipe</a></li>
+                    <li id="navPlayersTab"><a href="#joueurs" class="smooth-link">Joueurs</a></li>
+                    <li><a href="#reseaux" class="smooth-link">Réseaux</a></li>
+                    <li><a class="admin-nav-btn" onclick="checkAdminPassword()">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Accueil -->
+    <section id="accueil" class="hero">
+        <img src="logo.png" alt="Logo N4XO" class="hero-logo">
+        <h1>TEAM N4XO</h1>
+        <p>Bienvenue sur le site officiel de la team N4XO. Suivez nos aventures, découvrez notre staff et rejoignez la communauté sur nos plateformes.</p>
+    </section>
+
+    <!-- Section Équipe (Staff) -->
+    <section id="equipe" class="team-section">
+        <h2 class="section-title">NOTRE STAFF</h2>
+        <div class="grid-team" id="staffContainer"></div>
+    </section>
+
+    <!-- Section Joueurs -->
+    <section id="joueurs" class="team-section" style="background-color: #080808;">
+        <h2 class="section-title">NOS JOUEURS</h2>
+        <div class="grid-team" id="playersContainer"></div>
+    </section>
+
+    <!-- Section Réseaux -->
+    <section id="reseaux" class="networks-section">
+        <h2 class="section-title">NOS RÉSEAUX</h2>
+        <div class="grid-networks" id="networksContainer"></div>
+    </section>
+
+    <!-- Popup Contact -->
+    <div class="modal-overlay" id="contactModal" onclick="closeContact()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="modalName">Nom</h3>
+            <p>Contact par Discord :</p>
+            <div class="discord-tag" id="modalDiscord">tag</div>
+            <button class="close-btn" onclick="closeContact()">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Popup Panneau Admin -->
+    <div class="modal-overlay" id="adminModal" onclick="closeAdmin()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>PANNEAU DE CONFIGURATION</h3>
+            <p style="color: #ff3c00; font-weight: bold;">Espace de Gestion Team N4XO</p>
+            
+            <hr style="border-color: #222; margin-bottom: 20px;">
+
+            <!-- FORMULAIRE MEMBRE -->
+            <div style="text-align: left; font-weight: bold; margin-bottom: 10px; color: #ff3c00;">[+] AJOUTER UN MEMBRE OU JOUEUR</div>
+            <div class="admin-form-group">
+                <label>Nom / Pseudo</label>
+                <input type="text" id="addName" placeholder="Ex: Teeqzie">
+            </div>
+            <div class="admin-form-group">
+                <label>Rôle / Poste précis (ex: Joueur Pro, Modérateur...)</label>
+                <input type="text" id="addRole" placeholder="Ex: Joueur Esport">
+            </div>
+            <div class="admin-form-group">
+                <label>Catégorie de rôle (Où l'afficher ?)</label>
+                <select id="addType" onchange="togglePlatformField()">
+                    <option value="staff">Staff (Section Notre Staff)</option>
+                    <option value="joueur">Joueur (Section Nos Joueurs)</option>
+                </select>
+            </div>
+            <!-- NOUVEAU CHAMP : PLATEFORME (Affiché uniquement si catégorie = Joueur) -->
+            <div class="admin-form-group" id="platformFieldGroup" style="display: none;">
+                <label>Plateforme du joueur (ex: PC, PS5, Xbox, Switch...)</label>
+                <input type="text" id="addPlatform" placeholder="Ex: PC">
+            </div>
+            <div class="admin-form-group">
+                <label>Fichier Image (ex: logo.png)</label>
+                <input type="text" id="addImage" placeholder="logo.png">
+            </div>
+            <div class="admin-form-group">
+                <label>Discord Tag (sans le @)</label>
+                <input type="text" id="addDiscord" placeholder="Ex: joskyoff_">
+            </div>
+            <button class="admin-btn" onclick="addNewMember()">Enregistrer le membre</button>
+
+            <hr style="border-color: #222; margin-top: 20px; margin-bottom: 20px;">
+
+            <!-- FORMULAIRE RÉSEAU -->
+            <div style="text-align: left; font-weight: bold; margin-bottom: 10px; color: #00d2ff;">[+] AJOUTER UN RÉSEAU SOCIAL</div>
+            <div class="admin-form-group">
+                <label>Nom du Réseau</label>
+                <input type="text" id="addNetName" placeholder="Ex: TikTok">
+            </div>
+            <div class="admin-form-group">
+                <label>Description courte</label>
+                <input type="text" id="addNetDesc" placeholder="Suis nos meilleurs clips !">
+            </div>
+            <div class="admin-form-group">
+                <label>Lien complet (https://...)</label>
+                <input type="text" id="addNetUrl" placeholder="https://tiktok.com/@...">
+            </div>
+            <button class="admin-btn" style="background-color: #00d2ff; color: #000;" onclick="addNewNetwork()">Ajouter le réseau</button>
+
+            <hr style="border-color: #222; margin-top: 20px; margin-bottom: 20px;">
+
+            <!-- LISTE DE SUPPRESSION (DELETE) -->
+            <div style="text-align: left; font-weight: bold; margin-bottom: 15px; color: #dc3545;">[-] SUPPRIMER DES ÉLÉMENTS</div>
+            
+            <div style="text-align: left; font-size: 13px; color: #888; margin-bottom: 5px;">Membres du Staff :</div>
+            <div id="deleteStaffList"></div>
+
+            <div style="text-align: left; font-size: 13px; color: #888; margin-top: 10px; margin-bottom: 5px;">Joueurs :</div>
+            <div id="deletePlayersList"></div>
+
+            <div style="text-align: left; font-size: 13px; color: #888; margin-top: 10px; margin-bottom: 5px;">Réseaux Sociaux :</div>
+            <div id="deleteNetworksList"></div>
+
+            <hr style="border-color: #222; margin-top: 20px; margin-bottom: 20px;">
+
+            <!-- SÉCURITÉ -->
+            <div style="text-align: left; font-weight: bold; margin-bottom: 10px;">Options de Sécurité</div>
+            <div class="admin-form-group">
+                <label>Changer le mot de passe Admin</label>
+                <input type="password" id="newPasswordInput" placeholder="Nouveau mot de passe">
+            </div>
+            <button class="admin-btn" style="background-color: #222;" onclick="changeAdminPassword()">Changer le MDP</button>
+            
+            <button class="close-btn" style="width: 100%; margin-top: 20px; background-color: #fff; color: #000;" onclick="closeAdmin()">Fermer le menu</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 N4XO. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Sécurité mot de passe
+        if (!localStorage.getItem('adminPassword')) {
+            localStorage.setItem('adminPassword', 'Achomo');
+        }
+
+        // Données d'origines par défaut
+        const defaultStaff = [
+            { name: 'Josky', role: 'Fondateur / CEO', img: 'josky.png', discord: 'joskyoff_' },
+            { name: 'Digzy', role: 'Fondateur / CEO', img: 'digzy.jpg', discord: 'nxo_digzy.' },
+            { name: 'Olive', role: 'Chef Modérateur', img: 'olive.jpg', discord: 'ska3013' }
+        ];
+
+        const defaultPlayers = [];
+
+        const defaultNetworks = [
+            { name: 'Discord', desc: 'Rejoins le serveur pour discuter avec la team', url: 'https://discord.gg/PnXvwn9NEM' },
+            { name: 'X (Twitter)', desc: 'Suis nos actualités en temps réel', url: 'https://x.com/N4XONXO' },
+            { name: 'YouTube', desc: 'Abonne-toi pour ne rater aucune vidéo', url: 'https://www.youtube.com/@N4XONXO' }
+        ];
+
+        if (!localStorage.getItem('staffData')) localStorage.setItem('staffData', JSON.stringify(defaultStaff));
+        if (!localStorage.getItem('playersData')) localStorage.setItem('playersData', JSON.stringify(defaultPlayers));
+        if (!localStorage.getItem('networksData')) localStorage.setItem('networksData', JSON.stringify(defaultNetworks));
+
+        // Afficher ou masquer dynamiquement la case "Plateforme" dans le menu admin
+        function togglePlatformField() {
+            const type = document.getElementById('addType').value;
+            const group = document.getElementById('platformFieldGroup');
+            if (type === 'joueur') {
+                group.style.display = 'block';
+            } else {
+                group.style.display = 'none';
+            }
+        }
+
+        // Affichage dynamique
+        function renderSiteData() {
+            const staff = JSON.parse(localStorage.getItem('staffData'));
+            const players = JSON.parse(localStorage.getItem('playersData'));
+            const networks = JSON.parse(localStorage.getItem('networksData'));
+
+            // Gestion automatique de l'onglet joueur
+            if (players.length === 0) {
+                document.getElementById('navPlayersTab').style.display = 'none';
+                document.getElementById('joueurs').style.display = 'none';
+            } else {
+                document.getElementById('navPlayersTab').style.display = 'block';
+                document.getElementById('joueurs').style.display = 'block';
+            }
+
+            // Affichage Public - Staff
+            let staffHTML = '';
+            staff.forEach(m => {
+                staffHTML += `
+                <div class="team-card">
+                    <img src="${m.img || 'logo.png'}" alt="Avatar" class="avatar">
+                    <div class="member-name">${m.name}</div>
+                    <div class="member-role">${m.role}</div>
+                    <button class="contact-btn" onclick="openContact('${m.name}', '${m.discord}')">Contacter</button>
+                </div>`;
+            });
+            document.getElementById('staffContainer').innerHTML = staffHTML || '<p style="color:#444;">Aucun membre du staff</p>';
+
+            // Affichage Public - Joueurs (avec plateforme !)
+            let playersHTML = '';
+            players.forEach(p => {
+                // Si aucune plateforme n'est entrée, on met "PC" par défaut ou rien
+                const platformText = p.platform ? p.platform : 'PC';
+                playersHTML += `
+                <div class="team-card">
+                    <img src="${p.img || 'logo.png'}" alt="Avatar" class="avatar">
+                    <div class="member-name">${p.name}</div>
+                    <div class="member-role">${p.role}</div>
+                    <div class="member-platform">${platformText}</div>
+                    <button class="contact-btn" onclick="openContact('${p.name}', '${p.discord}')">Contacter</button>
+                </div>`;
+            });
+            document.getElementById('playersContainer').innerHTML = playersHTML;
+
+            // Affichage Public - Réseaux
+            let netHTML = '';
+            networks.forEach(n => {
+                netHTML += `
+                <a href="${n.url}" target="_blank" class="net-card">
+                    <div class="net-title">${n.name}</div>
+                    <div class="net-desc">${n.desc}</div>
+                </a>`;
+            });
+            document.getElementById('networksContainer').innerHTML = netHTML || '<p style="color:#444;">Aucun réseau configuré</p>';
+
+            // Génération Listes Admin pour Suppression (Delete)
+            let delStaffHTML = '';
+            staff.forEach((m, index) => {
+                delStaffHTML += `<div class="delete-list-item"><span>${m.name} (${m.role})</span><button class="delete-btn" onclick="deleteItem('staff', ${index})">Supprimer</button></div>`;
+            });
+            document.getElementById('deleteStaffList').innerHTML = delStaffHTML || '<div style="color:#555;font-size:12px;">Vide</div>';
+
+            let delPlayersHTML = '';
+            players.forEach((p, index) => {
+                const pText = p.platform ? ` - ${p.platform}` : '';
+                delPlayersHTML += `<div class="delete-list-item"><span>${p.name} (${p.role}${pText})</span><button class="delete-btn" onclick="deleteItem('joueur', ${index})">Supprimer</button></div>`;
+            });
+            document.getElementById('deletePlayersList').innerHTML = delPlayersHTML || '<div style="color:#555;font-size:12px;">Aucun joueur enregistré</div>';
+
+            let delNetHTML = '';
+            networks.forEach((n, index) => {
+                delNetHTML += `<div class="delete-list-item"><span>${n.name}</span><button class="delete-btn" onclick="deleteItem('reseau', ${index})">Supprimer</button></div>`;
+            });
+            document.getElementById('deleteNetworksList').innerHTML = delNetHTML || '<div style="color:#555;font-size:12px;">Vide</div>';
+        }
+
+        // Supprimer un élément
+        function deleteItem(type, index) {
+            if (confirm("Es-tu sûr de vouloir supprimer cet élément définitivement ?")) {
+                if (type === 'staff') {
+                    const data = JSON.parse(localStorage.getItem('staffData'));
+                    data.splice(index, 1);
+                    localStorage.setItem('staffData', JSON.stringify(data));
+                } else if (type === 'joueur') {
+                    const data = JSON.parse(localStorage.getItem('playersData'));
+                    data.splice(index, 1);
+                    localStorage.setItem('playersData', JSON.stringify(data));
+                } else if (type === 'reseau') {
+                    const data = JSON.parse(localStorage.getItem('networksData'));
+                    data.splice(index, 1);
+                    localStorage.setItem('networksData', JSON.stringify(data));
+                }
+                renderSiteData();
+            }
+        }
+
+        // Ajouter un membre/joueur
+        function addNewMember() {
+            const name = document.getElementById('addName').value.trim();
+            const role = document.getElementById('addRole').value.trim();
+            const type = document.getElementById('addType').value;
+            const platform = document.getElementById('addPlatform').value.trim();
+            let img = document.getElementById('addImage').value.trim();
+            const discord = document.getElementById('addDiscord').value.trim();
+
+            if(!name || !role || !discord) {
+                alert("Erreur : Les cases Nom, Rôle et Discord doivent être remplies !");
+                return;
+            }
+            if(!img) img = 'logo.png';
+
+            if(type === 'staff') {
+                const staff = JSON.parse(localStorage.getItem('staffData'));
+                staff.push({name, role, img, discord});
+                localStorage.setItem('staffData', JSON.stringify(staff));
+            } else {
+                const players = JSON.parse(localStorage.getItem('playersData'));
+                // On passe aussi la valeur de la plateforme pour le joueur
+                players.push({name, role, img, discord, platform: platform || 'PC'});
+                localStorage.setItem('playersData', JSON.stringify(players));
+            }
+
+            alert("Ajout réussi !");
+            renderSiteData();
+            
+            document.getElementById('addName').value = '';
+            document.getElementById('addRole').value = '';
+            document.getElementById('addPlatform').value = '';
+            document.getElementById('addImage').value = '';
+            document.getElementById('addDiscord').value = '';
+        }
+
+        // Ajouter un réseau
+        function addNewNetwork() {
+            const name = document.getElementById('addNetName').value.trim();
+            const desc = document.getElementById('addNetDesc').value.trim();
+            const url = document.getElementById('addNetUrl').value.trim();
+
+            if(!name || !desc || !url) {
+                alert("Erreur : Veuillez remplir toutes les cases réseaux.");
+                return;
+            }
+
+            const networks = JSON.parse(localStorage.getItem('networksData'));
+            networks.push({name, desc, url});
+            localStorage.setItem('networksData', JSON.stringify(networks));
+
+            alert("Réseau ajouté !");
+            renderSiteData();
+            document.getElementById('addNetName').value = '';
+            document.getElementById('addNetDesc').value = '';
+            document.getElementById('addNetUrl').value = '';
+        }
+
+        // Mot de passe administration
+        function checkAdminPassword() {
+            const correctPassword = localStorage.getItem('adminPassword');
+            const entry = prompt("Entrez le mot de passe d'administration :");
+            if (entry === correctPassword) {
+                document.getElementById('adminModal').classList.add('active');
+                togglePlatformField(); // Ajuste l'affichage initial de la case plateforme
+            } else if (entry !== null) {
+                alert("Mot de passe incorrect ! Accès refusé.");
+            }
+        }
+
+        function closeAdmin() { document.getElementById('adminModal').classList.remove('active'); }
+
+        function changeAdminPassword() {
+            const newMdp = document.getElementById('newPasswordInput').value.trim();
+            if(newMdp) {
+                localStorage.setItem('adminPassword', newMdp);
+                alert("Le mot de passe a été modifié !");
+                document.getElementById('newPasswordInput').value = '';
+            } else {
+                alert("Veuillez entrer un mot de passe valide.");
+            }
+        }
+
+        // Popups contacts
+        function openContact(name, discordTag) {
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalDiscord').innerText = discordTag;
+            document.getElementById('contactModal').classList.add('active');
+        }
+        function closeContact() { document.getElementById('contactModal').classList.remove('active'); }
+
+        // Glissé fluide
+        document.querySelectorAll('.smooth-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Premier chargement
+        renderSiteData();
+    </script>
+</body>
+</html>
